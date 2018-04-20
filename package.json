@@ -4,7 +4,7 @@
   "description": "Bot pour le Discord du journal",
   "main": "fbot.js",
   "scripts": {
-    "start": "node fbot.js"
+    "start": "node fbot.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "bot": "node fbot.js",
     "pm2:bot": "pm2 start fbot.js",
