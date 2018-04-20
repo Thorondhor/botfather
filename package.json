@@ -1,30 +1,32 @@
 {
-  "name": "fbot",
-  "version": "1.2.3",
-  "description": "Bot pour le Discord du journal",
+  "name": "botfather",
+  "version": "2.5.1",
+  "description": "Bot Father (alias Old Brother) du Discord du Journal LibrE'VenaR (Elvenar France).",
   "main": "fbot.js",
-  "scripts": {
-    "start": "node fbot.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "bot": "node fbot.js",
-    "pm2:bot": "pm2 start fbot.js",
-  },
-  "author": "Thorondhor",
-  "license": "GPL-3.0",
   "dependencies": {
     "discord.js": "^11.3.2",
-    "ffmpeg": "0.0.4",
+    "ffmpeg": "^0.0.4",
     "node-opus": "^0.2.7",
-    "opusscript": "0.0.6",
+    "opusscript": "^0.0.6",
     "ytdl-core": "^0.20.2"
   },
   "devDependencies": {},
-  "keywords": [
-    "journal",
-    "bot"
-  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thorondhor/botfather/upload/master"
-  }
+    "url": "git+https://github.com/Thorondhor/botfather.git"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "elvenar"
+  ],
+  "author": "Thorondhor",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Thorondhor/botfather/issues"
+  },
+  "homepage": "https://github.com/Thorondhor/botfather#readme"
 }
