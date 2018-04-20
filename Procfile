@@ -1,2 +1,2 @@
-web: node bbot.js
+web: node fbot.js
 worker: node fbot
