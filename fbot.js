@@ -5,8 +5,7 @@ const Discord = require("discord.js")
 require("opusscript");
 require("opusscript");
 require ("node-opus")
-const snekfetch = require('snekfetch');
-const ytdl = require('ytdl-core');
+
 // Ici utilisation de 'bot' plutôt que 'client' mais penser à changer les fragments de code en fonction.
 const bot = new Discord.Client();
 //Pour modifier la config
@@ -70,12 +69,11 @@ bot.on("message", async message => {
   }
   
   if(command === "say") {
-    // makes the bot say something and delete the message. As an example, it's open to anyone to use. 
-    // To get the "message" itself we join the `args` back into a string with spaces: 
+    // envoyer un message anonyme
+    // sortir le message: 
     const sayMessage = args.join(" ");
-    // Then we delete the command message (sneaky, right?). The catch just ignores the error with a cute smiley thing.
     message.delete().catch(O_o=>{}); 
-    // And we get the bot to say the thing: 
+    // faire parler le bot 
     message.channel.send(sayMessage);
   }
 
@@ -97,27 +95,22 @@ bot.on("message", async message => {
   ////La modération
   if(command === "kick") {
       message.delete().catch(O_o=>{}); 
-    // This command must be limited to mods and admins. In this example we just hardcode the role names.
-    // Please read on Array.some() to understand this bit: 
-    // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
+    // limiter aux "modérateurs"
     if(!message.member.roles.some(r=>["Administrateur", "Rédacteur en chef", "Rédacteur en chef adjoint","Super observateur de l'équipe"].includes(r.name)) )
       return message.reply("expulsion impossible. Vous n'avez pas obtenu la permission de Big Eagle.");
     
-    // Let's first check if we have a member and if we can kick them!
-    // message.mentions.members is a collection of people that have been mentioned, as GuildMembers.
-    // We can also support getting the member by ID, which would be args[0]
+    // trouver la pauvre victime
     let member = message.mentions.members.first() || message.guild.members.get(args[0]);
     if(!member)
       return message.reply("donnez le nom de la personne à expulser.");
     if(!member.kickable) 
       return message.reply("expulsion impossible. Cet utilisateur est sous la protection de Big Eagle.");
     
-    // slice(1) removes the first part, which here should be the user mention or ID
-    // join(' ') takes all the various parts to make it a single string.
+    // trouver une raison random ^^
     let reason = args.slice(1).join(' ');
     if(!reason) reason = "pas de pièce justificative.";
     
-    // Now, time for a swift kick in the nuts!
+    // et hop juste une expulsion !
     await member.kick(reason)
       .catch(error => message.reply("expulsion impossible. Désolé ${message.author}, vous ne pouvez pas l'expulser. Raison : ${error}"));
     message.reply(`${member.user.tag} a été expulsé avec succès par ${message.author.tag} pour le motif suivant : ${reason}`);
@@ -126,9 +119,7 @@ bot.on("message", async message => {
 
   
   if(command === "ban") {
-    // Most of this command is identical to kick, except that here we'll only let admins do it.
-    // In the real world mods could ban too, but this is just an example, right? ;)
-
+    // on prend le même et on recommence
     message.delete().catch(O_o=>{}); 
 
     if(!message.member.roles.some(r=>["Administrateur", "Rédacteur en chef", "Rédacteur en chef adjoint", "Super observateur de l'équipe"].includes(r.name)) )
@@ -155,16 +146,15 @@ bot.on("message", async message => {
     if(!message.member.roles.some(r=>["Administrateur", "Rédacteur en chef", "Super observateur de l'équipe"].includes(r.name)) )
     return message.reply("réponse négative. Permission refusée.");
 
-      // We want to check if the argument is a number
+      // y a le numéro ??
       if (isNaN(args[0])) {
-          // Sends a message to the channel.
+          // Sinon débrouillez vous et donnez le moi
           return message.reply(`Indiquez le nombre de messages à supprimer. \n Utilisez : ${config.prefix} aspi <nombre>`); //\n means new line.
 } 
 let fetched = await message.channel.fetchMessages({limit: args[0]});
 if(!fetched) 
 return message.reply("erreur en tenant de passer l'aspirateur...");
-console.log(fetched.size + ' messages trouvés, suppression...'); // Lets post into console how many messages we are deleting
-message.channel.bulkDelete (fetched)
+console.log(fetched.size + ' messages trouvés, suppression...'); // moi c'est simple sans message de confirmation, j'y crois pas^^
 message.reply(`Aspirateur passé avec succès. \n Total des messages supprimés (dont la commande): ${fetched.size}`)
   
 }
@@ -175,4 +165,4 @@ message.reply(`Aspirateur passé avec succès. \n Total des messages supprimés 
     
   
 
-bot.login(config.token);
+bot.login(process.env.TOKEN);
