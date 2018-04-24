@@ -159,10 +159,6 @@ console.log(fetched.size + ' messages trouvés, suppression...'); // moi c'est s
 message.reply(`Aspirateur passé avec succès. \n Total des messages supprimés (dont la commande): ${fetched.size}`)
   }
 });
-
-}
-
-  });
   
     ////Fonctionalités pour le fun (à venir)
     
