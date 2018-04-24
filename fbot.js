@@ -142,17 +142,20 @@ bot.on("message", async message => {
   
   //aspi-buuug
    if (command ==="aspi") {
-    //copie code purge original
+     
+     
+    //vérification des permissions
     if(!message.member.roles.some(r=>["Administrateur", "Rédacteur en chef", "Super observateur de l'équipe"].includes(r.name)) )
     return message.reply("réponse négative. Permission refusée.");
 
       // y a le numéro ??
-         const deleteCount = parseInt(args[0], 10);
+         let deleteCount = args.join(' ');
     if(!deleteCount || deleteCount < 2 || deleteCount > 100)
           // Sinon débrouillez vous et donnez le moi
           return message.reply(`Indiquez le nombre de messages à supprimer. \n Utilisez : ${config.prefix} aspi <nombre entre 2 et 100>`);
-const fetched = await message.channel.fetchMessages({count: deleteCount});
-     message.channel.bulkDelete(fetched)
+
+     const fetched = await message.channel.fetch({count: deleteCount});
+     channel.message.bulkDelete(fetched)
 console.log(fetched.size + ' messages trouvés, suppression...'); // moi c'est simple sans message de confirmation, j'y crois pas^^
 message.reply(`Aspirateur passé avec succès. \n Total des messages supprimés (dont la commande): ${fetched.size}`)
    }
