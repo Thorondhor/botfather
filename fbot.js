@@ -150,8 +150,7 @@ bot.on("message", async message => {
          const deleteCount = parseInt(args[0], 10);
     if(!deleteCount || deleteCount < 2 || deleteCount > 100)
           // Sinon débrouillez vous et donnez le moi
-          return message.reply(`Indiquez le nombre de messages à supprimer. \n Utilisez : ${config.prefix} aspi <nombre entre 2 et 100>`); //\n means new line.
-} 
+          return message.reply(`Indiquez le nombre de messages à supprimer. \n Utilisez : ${config.prefix} aspi <nombre entre 2 et 100>`);
 const fetched = await message.channel.fetchMessages({count: deleteCount});
      message.channel.bulkDelete(fetched)
 console.log(fetched.size + ' messages trouvés, suppression...'); // moi c'est simple sans message de confirmation, j'y crois pas^^
