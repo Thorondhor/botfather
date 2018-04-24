@@ -153,8 +153,10 @@ bot.on("message", async message => {
           return message.reply(`Indiquez le nombre de messages à supprimer. \n Utilisez : ${config.prefix} aspi <nombre entre 2 et 100>`); //\n means new line.
 } 
 const fetched = await message.channel.fetchMessages({count: deleteCount});
+  if(!fetched)
+    return message.reply("Erreur avec l'aspirateur");
+  
    message.channel.bulkDelete(fetched)
-  .catch(error => message.reply(`problème en passant l'apsirateur: ${error}`));
 console.log(fetched.size + ' messages trouvés, suppression...'); // moi c'est simple sans message de confirmation, j'y crois pas^^
 message.reply(`Aspirateur passé avec succès. \n Total des messages supprimés (dont la commande): ${fetched.size}`)
   });
